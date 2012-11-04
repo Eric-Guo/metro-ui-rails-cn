@@ -4,13 +4,13 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'metro/ui/rails/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = "metro-ui-rails"
+  gem.name          = "metro-ui-rails-cn"
   gem.version       = Metro::Ui::Rails::VERSION
-  gem.authors       = ["Vilius Luneckas"]
-  gem.email         = ["vilius.luneckas@gmail.com"]
+  gem.authors       = ["mangege"]
+  gem.email         = ["mr.mangege@gmail.com"]
   gem.description   = %q{metro-ui-rails project integrates Metro-UI CSS toolkit for Rails 3.1 Asset Pipeline}
   gem.summary       = %q{Metro-UI CSS toolkit for Rails 3.1 Asset Pipeline}
-  gem.homepage      = "https://github.com/viliusluneckas/metro-ui-rails"
+  gem.homepage      = "https://github.com/mangege/metro-ui-rails-cn"
 
   gem.files         = `git ls-files`.split($/)
   gem.require_paths = ["lib"]
