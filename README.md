@@ -2,13 +2,11 @@
 
 This gem integrates [Metro-UI-CSS](https://github.com/olton/Metro-UI-CSS) toolkit into Rails 3.1 Asset Pipeline.
 
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/ViliusLuneckas/metro-ui-rails)
-
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'metro-ui-rails'
+    gem 'metro-ui-rails-cn'
 
 And then execute:
 
@@ -16,14 +14,19 @@ And then execute:
 
 ## Installing to Rails project:
 
-Require metro-ui/metro.less in your application.less:
+Require metro-ui/metro.less in your metro-ui-css-and-overrides.less
 
-    @import 'metro-ui/modern.less';
-    @import 'metro-ui/modern-responsive.less'; // for responsive design
+    @import 'metro-ui-css/modern.less';
+    @import 'metro-ui-css/modern-responsive.less'; // for responsive design
 
-And then require metro-ui in your js or coffee application file:
+Require metro-ui-css.less in your application.css:
 
-    #= require metro-ui
+    *= require metro-ui-css-and-overrides
+
+
+And then require metro-ui in your js application file:
+
+    //= require metro-ui-css-js
 
 
 ## Layout generator
@@ -37,6 +40,13 @@ Usage:
 Example:
 
     rails generate metro:layout application
+
+## Development
+
+`git submodule init`  init git://github.com/olton/Metro-UI-CSS.git  
+`git submodule update` update Metro-UI-CSS  
+`rake update` update Metro-UI-CSS to gem
+  
 
 ## License
 
