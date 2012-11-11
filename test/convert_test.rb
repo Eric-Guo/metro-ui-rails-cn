@@ -25,4 +25,14 @@ class ConvertTest < ActiveSupport::TestCase
     assert_equal new_content, @convert.replace_google_font_url(content)
     assert File.exist?( File.expand_path("../../vendor/assets/images/metro-ui-css/fonts/", __FILE__) )
   end
+
+  test "#replace_local_font_url 应该替换成asset-url" do
+    content = <<-EOS
+  src: url('../fonts/iconFont.eot?#iefix') format('embedded-opentype'), url('../fonts/iconFont.svg#iconFont') format('svg'), url('../fonts/iconFont.woff') format('woff'), url('../fonts/iconFont.ttf') format('truetype');
+    EOS
+    new_content = <<-EOS
+  src: asset-url(\"metro-ui-css/fonts/iconFont.eot?#iefix\") format('embedded-opentype'), asset-url(\"metro-ui-css/fonts/iconFont.svg#iconFont\") format('svg'), asset-url(\"metro-ui-css/fonts/iconFont.woff\") format('woff'), asset-url(\"metro-ui-css/fonts/iconFont.ttf\") format('truetype');
+    EOS
+    assert_equal new_content, @convert.replace_local_font_url(content)
+  end
 end

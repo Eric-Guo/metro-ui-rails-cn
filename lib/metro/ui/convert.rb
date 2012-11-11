@@ -18,10 +18,15 @@ module Metro
         js_dest_dir = File.expand_path("../../../../vendor/assets/javascripts/metro-ui-css", __FILE__)
         rm_and_cp(js_src_dir, js_dest_dir)
 
+        font_src_dir = File.expand_path("../../../../Metro-UI-CSS/fonts", __FILE__)
+        font_dest_dir = File.expand_path("../../../../vendor/assets/images/metro-ui-css/fonts", __FILE__)
+        rm_and_cp(font_src_dir, font_dest_dir)
+
         Dir["#{less_dest_dir}/*.less"].each do |file|
           content = File.read(file)
           new_content = replace_image_url(content)
           new_content = replace_google_font_url(new_content)
+          new_content = replace_local_font_url(new_content)
           File.write(file, new_content)
         end
       end
@@ -31,6 +36,14 @@ module Metro
           image_url = strip_quotes( $1.strip )
           image_url = "metro-ui-css/#{File.basename(image_url)}"
           "image-url(\"#{image_url}\")"
+        end
+      end
+
+      def replace_local_font_url(content)
+        content.gsub(/url\((.+?\.\.\/fonts\/.+?)\)/mi) do |full_url|
+          font_url = strip_quotes( $1.strip )
+          font_url = "metro-ui-css/fonts/#{File.basename(font_url)}"
+          "asset-url(\"#{font_url}\")"
         end
       end
 
@@ -45,18 +58,18 @@ module Metro
           font_url = "metro-ui-css/fonts/#{File.basename(font_url)}"
           "asset-url(\"#{font_url}\")"
         end
-        
       end
 
       private
       def strip_quotes(url)
         url = url[1..-2] if url =~ /^\".*\"$/
-        url = url[1..-2] if url =~ /^'.*'$/
-        url
+          url = url[1..-2] if url =~ /^'.*'$/
+          url
       end
 
       def rm_and_cp(src_dir, dest_dir)
-        FileUtils.rm_rf(dest_dir + '/*')
+        FileUtils.rm_rf( Dir.glob(dest_dir + '/*') )
+        FileUtils.mkdir_p(dest_dir)
         FileUtils.cp_r( Dir.glob("#{ src_dir}/**" ), dest_dir)
       end
     end
