@@ -3,6 +3,10 @@ module Metro
     class Convert
       def run
         replace_files
+
+        license_src_file = File.expand_path("../../../../Metro-UI-CSS/LICENSE", __FILE__)
+        license_dest_file = File.expand_path("../../../../Metro-UI-CSS-LICENSE", __FILE__)
+        FileUtils.cp(license_src_file, license_dest_file)
       end
 
       def replace_files
